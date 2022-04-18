@@ -3,6 +3,7 @@ const minN = 4;
 const maxN = 50;
 const minP = 0;
 const maxP = 1;
+console.log("hi")
 
 submit.addEventListener('click', function (e) {
     // No reload page
