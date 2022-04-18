@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.4.1/lib/p5.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <title>Document</title>
+</head>
+
+<body class="bg-dark">
+    <div class="container">
+        <!-- Title -->
+        <div class="row class-center">
+            <h2 class="col text-center p-2 text-light">
+                Pathing With A*
+            </h2>
+        </div>
+        <form action="" class="border rounded p-3 border-5 border-light shadow bg-dark text-light">
+            <div class="row g-3 align-items-center p-1">
+                <div class="col-2 border-end text-end">
+                    <label for="N" class="col-form-label">N: </label>
+                </div>
+                <div class="col-5">
+                    <input type="text" id="N" class="form-control text-center"
+                        aria-describedby="passwordHelpInline">
+                </div>
+            </div>
+
+            <div class="row g-3 align-items-center p-1">
+                <div class="col-2 border-end text-end">
+                    <label for="startNode" class="col-form-label">Start Node: </label>
+                </div>
+                <div class="col-5">
+                    <input type="text" id="startNodeX" class="form-control text-center"
+                        aria-describedby="passwordHelpInline" placeholder="X">
+                </div>
+                <div class="col-5">
+                    <input type="text" id="startNodeY" class="form-control text-center"
+                        aria-describedby="passwordHelpInline" placeholder="Y">
+                </div>
+            </div>
+
+            <div class="row g-3 align-items-center p-1">
+                <div class="col-2 border-end text-end">
+                    <label for="G1Node" class="col-form-label">G Node 1: </label>
+                </div>
+                <div class="col-5">
+                    <input type="text" id="G1NodeX" class="form-control text-center"
+                        aria-describedby="passwordHelpInline" placeholder="X">
+                </div>
+                <div class="col-5">
+                    <input type="text" id="G1NodeY" class="form-control text-center"
+                        aria-describedby="passwordHelpInline" placeholder="Y">
+                </div>
+            </div>
+
+            <div class="row g-3 align-items-center p-1">
+                <div class="col-2 border-end text-end">
+                    <label for="G1Node" class="col-form-label">G Node 2: </label>
+                </div>
+                <div class="col-5">
+                    <input type="text" id="G2NodeX" class="form-control text-center"
+                        aria-describedby="passwordHelpInline" placeholder="X">
+                </div>
+                <div class="col-5">
+                    <input type="text" id="G2NodeY" class="form-control text-center"
+                        aria-describedby="passwordHelpInline" placeholder="Y">
+                </div>
+            </div>
+
+            <div class="row g-3 align-items-center p-1">
+                <div class="col-2 border-end text-end">
+                    <label for="G1Node" class="col-form-label">Possibilities for obstacles: </label>
+                </div>
+                <div class="col-5">
+                    <input type="text" id="possibility" class="form-control text-center"
+                        aria-describedby="passwordHelpInline">
+                </div>
+            </div>
+
+            <div class="row ps-4 pe-3 mt-2 mb-2">
+                <button class="btn btn-outline-success" type="button" id="submit">Submit</button>
+            </div>
+            <div class="row">
+                <div class="col text-center" style="font-size:12px;">
+                    *Only Number Values
+                </div>
+            </div>
+        </form>
+
+        <div class="row p-2">
+            <div class="col-9 text-center border">
+                <div id="canvasContainer"></div>
+            </div>
+            <div class="col-3 border">
+                <div class="text-light">
+                    Ν: 5
+                </div>
+                <div class="text-light">
+                    Start Node[0,0]
+                </div>
+                <div class="text-light">
+                    G1 Node[0,0]
+                </div>
+                <div class="text-light">
+                    G2 Node[0,0]
+                </div>
+                <div class="text-light border-bottom">
+                    Possibilities for obstacles: 0.2
+                </div>
+                <div class="text-light">
+                    G1 Find with weight
+                </div>
+                <div class="text-light">
+                    G2 Find with weight
+                </div>
+                <div class="text-light">
+                    Finish with weight
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+        <script src="validationForm.js"></script>
+    <script src="app.js"></script>
+</body>
+
+</html>
