@@ -1,10 +1,26 @@
 const submit = document.getElementById('submit');
+const resetBtn = document.getElementById('resetButton');
+const form = document.getElementById('form');
+const game = document.getElementById('game');
+const startDefault = document.getElementById('startDefault');
+
 const minN = 4;
-const maxN = 50;
+const maxN = 80;
 const minP = 0;
 const maxP = 1;
-console.log("hi")
-console.log("hi")
+let startGame = false;
+
+startDefault.addEventListener('click', (e) => {
+    // No reload page
+    e.preventDefault();
+    // Start Game
+    form.classList.add('d-none');
+    game.classList.remove('d-none');
+    stopGame()
+    startGame = true;
+    resetGame(80, 0, 0, 25, 25, 78, 64, 0.3);
+})
+
 
 submit.addEventListener('click', function (e) {
     // No reload page
@@ -17,7 +33,8 @@ submit.addEventListener('click', function (e) {
     const G1NodeY = parseInt(document.getElementById('G1NodeY').value);
     const G2NodeX = parseInt(document.getElementById('G2NodeX').value);
     const G2NodeY = parseInt(document.getElementById('G2NodeY').value);
-    const possibility = parseInt(document.getElementById('possibility').value);
+    const userFrameRate = parseInt(document.getElementById('userFrameRate').value);
+    const possibility = parseFloat(document.getElementById('possibility').value);
 
     console.log(formN)
     if (!(!isNaN(formN) && biggerFrom(formN, maxN) && smallerFrom(formN, minN))) {
@@ -84,11 +101,27 @@ submit.addEventListener('click', function (e) {
         document.getElementById('possibility').classList.remove('is-invalid');
         document.getElementById('possibility').classList.add('is-valid');
     }
+    if (!(!isNaN(userFrameRate) && biggerFrom(userFrameRate, 140) && smallerFrom(userFrameRate, 0))) {
+        validation = false;
+        document.getElementById('userFrameRate').classList.add('is-invalid');
+    } else {
+        document.getElementById('userFrameRate').classList.remove('is-invalid');
+        document.getElementById('userFrameRate').classList.add('is-valid');
+    }
     if (validation) {
-        console.log("Correct")
+        form.classList.add('d-none');
+        game.classList.remove('d-none');
+        stopGame()
+        startGame = true;
+        console.log("HERE: " + userFrameRate)
+        resetGame(formN, startNodeX, startNodeY, G1NodeX, G1NodeY, G2NodeX, G2NodeY, possibility, userFrameRate);
     } else {
         console.log("Fail")
     }
+})
+
+resetBtn.addEventListener('click', () => {
+    location.reload();
 })
 
 function biggerFrom(inputNumber, number) {

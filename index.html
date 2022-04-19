@@ -19,7 +19,7 @@
                 Pathing With A*
             </h2>
         </div>
-        <form action="" class="border rounded p-3 border-5 border-light shadow bg-dark text-light">
+        <form class="border rounded p-3 border-5 border-light shadow bg-dark text-light" id="form">
             <div class="row g-3 align-items-center p-1">
                 <div class="col-2 border-end text-end">
                     <label for="N" class="col-form-label">N: </label>
@@ -81,9 +81,21 @@
                         aria-describedby="passwordHelpInline">
                 </div>
             </div>
+            <div class="row g-3 align-items-center p-1">
+                <div class="col-2 border-end text-end">
+                    <label for="G1Node" class="col-form-label">Frame rate: </label>
+                </div>
+                <div class="col-5">
+                    <input type="text" id="userFrameRate" class="form-control text-center"
+                        aria-describedby="passwordHelpInline">
+                </div>
+            </div>
 
             <div class="row ps-4 pe-3 mt-2 mb-2">
                 <button class="btn btn-outline-success" type="button" id="submit">Submit</button>
+            </div>
+            <div class="row ps-4 pe-3 mt-2 mb-2">
+                <button class="btn btn-outline-success" type="button" id="startDefault">Start with default values</button>
             </div>
             <div class="row">
                 <div class="col text-center" style="font-size:12px;">
@@ -92,8 +104,8 @@
             </div>
         </form>
 
-        <div class="row p-2">
-            <div class="col-9 text-center border">
+        <div class="row border rounded p-3 border-5 border-light shadow bg-dark text-light mt-2 d-none" id="game">
+            <div class="col-9 text-center ">
                 <div id="canvasContainer"></div>
             </div>
             <div class="col-3 border">
@@ -121,6 +133,12 @@
                 <div class="text-light">
                     Finish with weight
                 </div>
+                <div class="row">
+                    <div class="col text-center mt-2">
+                        <button class="btn btn-outline-success ps-5 pe-5 d-none" id="resetButton">Reset</button>
+                    </div>
+                </div>
+                
             </div>
         </div>
     </div>
