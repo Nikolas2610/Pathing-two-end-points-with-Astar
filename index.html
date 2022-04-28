@@ -26,7 +26,7 @@
                 </div>
                 <div class="col-5">
                     <input type="text" id="N" class="form-control text-center"
-                        aria-describedby="passwordHelpInline">
+                        aria-describedby="passwordHelpInline" placeholder="Min value: 4, Max Value: 100">
                 </div>
             </div>
 
@@ -78,7 +78,7 @@
                 </div>
                 <div class="col-5">
                     <input type="text" id="possibility" class="form-control text-center"
-                        aria-describedby="passwordHelpInline">
+                        aria-describedby="passwordHelpInline" placeholder="0-1">
                 </div>
             </div>
             <div class="row g-3 align-items-center p-1">
@@ -87,7 +87,7 @@
                 </div>
                 <div class="col-5">
                     <input type="text" id="userFrameRate" class="form-control text-center"
-                        aria-describedby="passwordHelpInline">
+                        aria-describedby="passwordHelpInline" placeholder="This label you can leave empty with default value">
                 </div>
             </div>
 
@@ -109,36 +109,60 @@
                 <div id="canvasContainer"></div>
             </div>
             <div class="col-3 border">
-                <div class="text-light">
-                    Ν: 5
+                <div class="text-light p-2">
+                    Ν: <span id="nValue">10</span>
                 </div>
-                <div class="text-light">
-                    Start Node[0,0]
+                <div class="text-light p-2">
+                    Start Node [<span id="sNodeValueX">78</span>,<span id="sNodeValueY">78</span>]
                 </div>
-                <div class="text-light">
-                    G1 Node[0,0]
+                <div class="text-light p-2">
+                    G1 Node [<span id="g1NodeValueX">78</span>,<span id="g1NodeValueY">78</span>]
                 </div>
-                <div class="text-light">
-                    G2 Node[0,0]
+                <div class="text-light p-2">
+                    G2 Node [<span id="g2NodeValueX">78</span>,<span id="g2NodeValueY">78</span>]
                 </div>
-                <div class="text-light border-bottom">
-                    Possibilities for obstacles: 0.2
+                <div class="text-light border-bottom p-2">
+                    Possibilities for obstacles: <span id="obstaclesValue">78</span>
                 </div>
-                <div class="text-light">
-                    G1 Find with weight
+                <div class="text-success p-2 d-none" id="g1Weight">
+                    G1 Find with weight: <span id="g1WeightValue">78</span>
                 </div>
-                <div class="text-light">
-                    G2 Find with weight
+                <div class="text-success p-2  d-none" id="g2Weight">
+                    G2 Find with weight: <span id="g2WeightValue">78</span>
                 </div>
-                <div class="text-light">
-                    Finish with weight
+                <div class="text-success p-2 d-none" id="finishWeight">
+                    Finish with weight: <span id="gWeightValue">78</span>
                 </div>
                 <div class="row">
                     <div class="col text-center mt-2">
-                        <button class="btn btn-outline-success ps-5 pe-5 d-none" id="resetButton">Reset</button>
+                        <button class="btn btn-outline-success ps-5 pe-5" id="resetButton">Reset</button>
                     </div>
                 </div>
+                <div class="p-2 d-none text-center p-2 mt-5 fs-3 border border-light rounded" id="result">
+                    
+                </div>
                 
+            </div>
+        </div>
+
+        <div class="row text-light text-center p-4 d-none" id="declareColors">
+            <div class="col text-secondary">
+                Start Node: Grey Color
+            </div>
+            <div class="col" style="color: purple;">
+                G Nodes: Puprle Color
+            </div>
+            <div class="col text-success">
+                Open path: Green Color
+            </div>
+            <div class="col text-danger">
+                Close path: Red Color
+            </div>
+            <div class="col" style="color: blue;">
+                Path: Blue Color
+            </div>
+            <div class="col" style="color: black;">
+                Walls: Black Color
             </div>
         </div>
     </div>

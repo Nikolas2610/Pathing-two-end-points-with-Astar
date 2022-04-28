@@ -5,10 +5,12 @@ const game = document.getElementById('game');
 const startDefault = document.getElementById('startDefault');
 
 const minN = 4;
-const maxN = 80;
+const maxN = 100;
 const minP = 0;
 const maxP = 1;
 let startGame = false;
+
+
 
 startDefault.addEventListener('click', (e) => {
     // No reload page
@@ -18,6 +20,15 @@ startDefault.addEventListener('click', (e) => {
     game.classList.remove('d-none');
     stopGame()
     startGame = true;
+    document.getElementById('nValue').innerHTML = 80;
+    document.getElementById('sNodeValueX').innerHTML = 0;
+    document.getElementById('sNodeValueY').innerHTML = 0;
+    document.getElementById('g1NodeValueX').innerHTML = 25;
+    document.getElementById('g1NodeValueY').innerHTML = 25;
+    document.getElementById('g2NodeValueX').innerHTML = 78;
+    document.getElementById('g2NodeValueY').innerHTML = 64;
+    document.getElementById('obstaclesValue').innerHTML = 0.3;
+    document.getElementById('declareColors').classList.remove('d-none');
     resetGame(80, 0, 0, 25, 25, 78, 64, 0.3);
 })
 
@@ -111,10 +122,20 @@ submit.addEventListener('click', function (e) {
     if (validation) {
         form.classList.add('d-none');
         game.classList.remove('d-none');
+        document.getElementById('declareColors').classList.remove('d-none');
         stopGame()
         startGame = true;
-        console.log("HERE: " + userFrameRate)
+        document.getElementById('nValue').innerHTML = formN;
+        document.getElementById('sNodeValueX').innerHTML = startNodeX;
+        document.getElementById('sNodeValueY').innerHTML = startNodeY;
+        document.getElementById('g1NodeValueX').innerHTML = G1NodeX;
+        document.getElementById('g1NodeValueY').innerHTML = G1NodeY;
+        document.getElementById('g2NodeValueX').innerHTML = G2NodeX;
+        document.getElementById('g2NodeValueY').innerHTML = G2NodeY;
+        document.getElementById('obstaclesValue').innerHTML = possibility;
+
         resetGame(formN, startNodeX, startNodeY, G1NodeX, G1NodeY, G2NodeX, G2NodeY, possibility, userFrameRate);
+
     } else {
         console.log("Fail")
     }

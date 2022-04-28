@@ -16,10 +16,11 @@ let firstG = false;
 let g1, g2, h1, h2;
 let firstPath = [];
 let frame;
+let g1W;
 
 
 function setup() {
-    let canvas = createCanvas(600, 600);
+    let canvas = createCanvas(750, 750);
     canvas.parent('canvasContainer');
     background(33, 37, 41)
 
@@ -31,8 +32,6 @@ function setup() {
 
 function draw() {
     if (startGame) {
-        // console.log(frame)
-        // frameRate(frame);
         if (!firstG) {
             aStar(end);
         } else {
@@ -61,14 +60,10 @@ function resetGame(formN, startNodeX, startNodeY, G1NodeX, G1NodeY, G2NodeX, G2N
     w = width / cols;
     h = height / rows;
     console.log("before " + grid)
-    frameRate(userFrameRate);
-
-    // grid.splice(0,grid.length);
+    if (userFrameRate !== undefined) {
+        frameRate(userFrameRate);
+    }
     grid = [];
-    console.log("size " + grid.length)
-    // grid = new Array(cols);
-    console.log("after " + grid)
-
     possibility = p;
 
     createSpots();
@@ -121,6 +116,9 @@ function aStar(masterEnd) {
             console.log("WEIGHT: " + masterEnd.g)
             masterEnd.find = true;
             if (!firstG) {
+                document.getElementById('g1WeightValue').innerHTML = masterEnd.g;
+                document.getElementById('g1Weight').classList.remove('d-none');
+                g1w = masterEnd.g;
                 firstG = true;
                 let temp = current;
                 firstPath.push(temp);
@@ -141,10 +139,14 @@ function aStar(masterEnd) {
                     g2.find = true;
                 }
             } else {
+                document.getElementById('g2WeightValue').innerHTML = masterEnd.g - g1w;
+                document.getElementById('g2Weight').classList.remove('d-none');
+                document.getElementById('gWeightValue').innerHTML = masterEnd.g;
+                document.getElementById('finishWeight').classList.remove('d-none');
+                document.getElementById('result').classList.add('text-success');
+                document.getElementById('result').innerHTML = "A* had find G1 and G2 spot";
+                document.getElementById('result').classList.remove('d-none');
                 console.log("DONE!");
-                console.log(firstPath);
-                console.log(path);
-                document.getElementById('resetButton').classList.remove('d-none');
                 noLoop();
             }
 
@@ -177,7 +179,10 @@ function aStar(masterEnd) {
     } else {
         //No solution
         console.log("No solution ");
-        document.getElementById('resetButton').classList.remove('d-none');
+        document.getElementById('result').classList.add('text-danger');
+        document.getElementById('result').innerHTML = "No Solution"
+        document.getElementById('result').classList.remove('d-none');
+        // document.getElementById('resetButton').classList.remove('d-none');
         noSulotion = false;
         noLoop();
     }
@@ -272,9 +277,6 @@ class Spot {
         if (random(1) < possibility) {
             this.wall = true;
         }
-        // if ((i == 1 && j == 1) || i == 2 && j == 2) {
-        //     this.wall = true;
-        // }
     }
 
 
