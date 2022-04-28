@@ -44,7 +44,7 @@ submit.addEventListener('click', function (e) {
     const G1NodeY = parseInt(document.getElementById('G1NodeY').value);
     const G2NodeX = parseInt(document.getElementById('G2NodeX').value);
     const G2NodeY = parseInt(document.getElementById('G2NodeY').value);
-    const userFrameRate = parseInt(document.getElementById('userFrameRate').value);
+    let userFrameRate = parseInt(document.getElementById('userFrameRate').value);
     const possibility = parseFloat(document.getElementById('possibility').value);
 
     console.log(formN)
@@ -64,7 +64,7 @@ submit.addEventListener('click', function (e) {
         document.getElementById('startNodeX').classList.remove('is-invalid');
         document.getElementById('startNodeX').classList.add('is-valid');
     }
-    if (!(!isNaN(startNodeY) && biggerFrom(startNodeY, formN) && smallerFrom(startNodeY, 0))) {
+    if (!(!isNaN(startNodeY) && biggerFrom(startNodeY, formN-1) && smallerFrom(startNodeY, 0))) {
         validation = false;
         document.getElementById('startNodeY').classList.add('is-invalid');
         console.log("3")
@@ -72,7 +72,7 @@ submit.addEventListener('click', function (e) {
         document.getElementById('startNodeY').classList.remove('is-invalid');
         document.getElementById('startNodeY').classList.add('is-valid');
     }
-    if (!(!isNaN(G1NodeX) && biggerFrom(G1NodeX, formN) && smallerFrom(G1NodeX, 0))) {
+    if (!(!isNaN(G1NodeX) && biggerFrom(G1NodeX, formN-1) && smallerFrom(G1NodeX, 0))) {
         validation = false;
         document.getElementById('G1NodeX').classList.add('is-invalid');
         console.log("4")
@@ -80,7 +80,7 @@ submit.addEventListener('click', function (e) {
         document.getElementById('G1NodeX').classList.remove('is-invalid');
         document.getElementById('G1NodeX').classList.add('is-valid');
     }
-    if (!(!isNaN(G1NodeY) && biggerFrom(G1NodeY, formN) && smallerFrom(G1NodeY, 0))) {
+    if (!(!isNaN(G1NodeY) && biggerFrom(G1NodeY, formN-1) && smallerFrom(G1NodeY, 0))) {
         validation = false;
         document.getElementById('G1NodeY').classList.add('is-invalid');
         console.log("5")
@@ -88,7 +88,7 @@ submit.addEventListener('click', function (e) {
         document.getElementById('G1NodeY').classList.remove('is-invalid');
         document.getElementById('G1NodeY').classList.add('is-valid');
     }
-    if (!(!isNaN(G2NodeX) && biggerFrom(G2NodeX, formN) && smallerFrom(G2NodeX, 0))) {
+    if (!(!isNaN(G2NodeX) && biggerFrom(G2NodeX, formN-1) && smallerFrom(G2NodeX, 0))) {
         validation = false;
         document.getElementById('G2NodeX').classList.add('is-invalid');
         console.log("5")
@@ -96,7 +96,7 @@ submit.addEventListener('click', function (e) {
         document.getElementById('G2NodeX').classList.remove('is-invalid');
         document.getElementById('G2NodeX').classList.add('is-valid');
     }
-    if (!(!isNaN(G2NodeY) && biggerFrom(G2NodeY, formN) && smallerFrom(G2NodeY, 0))) {
+    if (!(!isNaN(G2NodeY) && biggerFrom(G2NodeY, formN-1) && smallerFrom(G2NodeY, 0))) {
         validation = false;
         document.getElementById('G2NodeY').classList.add('is-invalid');
         console.log("6")
@@ -113,8 +113,9 @@ submit.addEventListener('click', function (e) {
         document.getElementById('possibility').classList.add('is-valid');
     }
     if (!(!isNaN(userFrameRate) && biggerFrom(userFrameRate, 140) && smallerFrom(userFrameRate, 0))) {
-        validation = false;
-        document.getElementById('userFrameRate').classList.add('is-invalid');
+        // validation = false;
+        userFrameRate = 144;
+        // document.getElementById('userFrameRate').classList.add('is-invalid');
     } else {
         document.getElementById('userFrameRate').classList.remove('is-invalid');
         document.getElementById('userFrameRate').classList.add('is-valid');
