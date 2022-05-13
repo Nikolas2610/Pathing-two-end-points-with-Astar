@@ -3,23 +3,22 @@ const resetBtn = document.getElementById('resetButton');
 const form = document.getElementById('form');
 const game = document.getElementById('game');
 const startDefault = document.getElementById('startDefault');
-
+// Set Min and Mav values
 const minN = 4;
 const maxN = 100;
 const minP = 0;
 const maxP = 1;
 let startGame = false;
 
-
-
 startDefault.addEventListener('click', (e) => {
     // No reload page
     e.preventDefault();
     // Start Game
-    form.classList.add('d-none');
-    game.classList.remove('d-none');
-    stopGame()
+    form.classList.add('d-none');   //Hide Form
+    game.classList.remove('d-none');    //Show canvas
+    // stopGame();
     startGame = true;
+    // Add default values
     document.getElementById('nValue').innerHTML = 80;
     document.getElementById('sNodeValueX').innerHTML = 0;
     document.getElementById('sNodeValueY').innerHTML = 0;
@@ -29,6 +28,7 @@ startDefault.addEventListener('click', (e) => {
     document.getElementById('g2NodeValueY').innerHTML = 64;
     document.getElementById('obstaclesValue').innerHTML = 0.3;
     document.getElementById('declareColors').classList.remove('d-none');
+    // Start algorithm 
     resetGame(80, 0, 0, 25, 25, 78, 64, 0.3);
 })
 
@@ -37,6 +37,7 @@ submit.addEventListener('click', function (e) {
     // No reload page
     e.preventDefault();
     let validation = true;
+    // Get the values from the user
     const formN = parseInt(document.getElementById('N').value);
     const startNodeX = parseInt(document.getElementById('startNodeX').value);
     const startNodeY = parseInt(document.getElementById('startNodeY').value);
@@ -47,7 +48,7 @@ submit.addEventListener('click', function (e) {
     let userFrameRate = parseInt(document.getElementById('userFrameRate').value);
     const possibility = parseFloat(document.getElementById('possibility').value);
 
-    console.log(formN)
+    // Validate the values
     if (!(!isNaN(formN) && biggerFrom(formN, maxN) && smallerFrom(formN, minN))) {
         validation = false;
         document.getElementById('N').classList.add('is-invalid');
@@ -113,18 +114,16 @@ submit.addEventListener('click', function (e) {
         document.getElementById('possibility').classList.add('is-valid');
     }
     if (!(!isNaN(userFrameRate) && biggerFrom(userFrameRate, 140) && smallerFrom(userFrameRate, 0))) {
-        // validation = false;
         userFrameRate = 144;
-        // document.getElementById('userFrameRate').classList.add('is-invalid');
     } else {
         document.getElementById('userFrameRate').classList.remove('is-invalid');
         document.getElementById('userFrameRate').classList.add('is-valid');
     }
     if (validation) {
-        form.classList.add('d-none');
-        game.classList.remove('d-none');
+        form.classList.add('d-none');   // Hide Form
+        game.classList.remove('d-none');    // Show Canvas
         document.getElementById('declareColors').classList.remove('d-none');
-        stopGame()
+        // stopGame()
         startGame = true;
         document.getElementById('nValue').innerHTML = formN;
         document.getElementById('sNodeValueX').innerHTML = startNodeX;
@@ -134,18 +133,17 @@ submit.addEventListener('click', function (e) {
         document.getElementById('g2NodeValueX').innerHTML = G2NodeX;
         document.getElementById('g2NodeValueY').innerHTML = G2NodeY;
         document.getElementById('obstaclesValue').innerHTML = possibility;
-
+        // Start algorithm 
         resetGame(formN, startNodeX, startNodeY, G1NodeX, G1NodeY, G2NodeX, G2NodeY, possibility, userFrameRate);
-
     } else {
-        console.log("Fail")
+        console.log("Wrong Details")
     }
 })
-
+// Reset the algorithm
 resetBtn.addEventListener('click', () => {
     location.reload();
 })
-
+// Validation function for bigger numbers
 function biggerFrom(inputNumber, number) {
     if (inputNumber > number) {
         return false;
@@ -153,7 +151,7 @@ function biggerFrom(inputNumber, number) {
         return true;
     }
 }
-
+// Validation function for smaller numbers
 function smallerFrom(inputNumber, number) {
     if (inputNumber < number) {
         return false;

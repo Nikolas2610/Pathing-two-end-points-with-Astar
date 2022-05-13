@@ -20,23 +20,24 @@ let g1W;
 
 
 function setup() {
-    let canvas = createCanvas(750, 750);
-    canvas.parent('canvasContainer');
-    background(33, 37, 41)
-
-
+    let canvas = createCanvas(750, 750);    //Create canvas
+    canvas.parent('canvasContainer');   //Set to canvas the id for the html file
+    background(33, 37, 41)  // Background to canvas
     if (startGame) {
-        resetGame()
+        resetGame(); // Start algorithm 
     }
 }
 
 function draw() {
     if (startGame) {
         if (!firstG) {
+            // Find the first G spot
             aStar(end);
         } else {
+            // Find the second G spot
             aStar(end2);
         }
+        // Draw canvas
         printSpots();
     }
 }
@@ -55,11 +56,12 @@ function stopGame() {
 }
 
 function resetGame(formN, startNodeX, startNodeY, G1NodeX, G1NodeY, G2NodeX, G2NodeY, p, userFrameRate) {
+    // Create the board
     cols = formN;
     rows = formN;
     w = width / cols;
     h = height / rows;
-    console.log("before " + grid)
+    // Set the framerate
     if (userFrameRate !== undefined) {
         frameRate(userFrameRate);
     }
@@ -67,17 +69,19 @@ function resetGame(formN, startNodeX, startNodeY, G1NodeX, G1NodeY, G2NodeX, G2N
     possibility = p;
 
     createSpots();
+    // Start the loop function 
     loop();
     start = grid[startNodeY][startNodeX];
     g1 = grid[G1NodeY][G1NodeX];
     g2 = grid[G2NodeY][G2NodeX];
+    // Set the start, G1, G2 spots to not have walls
     start.wall = false;
     start.startNode = true;
     g1.wall = false;
     g2.wall = false;
+    // Decide which is the closet G spot from the start
     h1 = heuristic(start, g1);
     h2 = heuristic(start, g2);
-    console.log(`h1: ${h1}, h2: ${h2}`)
 
     if (h1 == h2) {
         if (start.i - g1.i < start.i - g2.i) {
@@ -98,12 +102,13 @@ function resetGame(formN, startNodeX, startNodeY, G1NodeX, G1NodeY, G2NodeX, G2N
         end = g1;
         end2 = g2;
     }
-    openSet.push(start);
+    openSet.push(start);    // Add start node to open set
 }
 
 function aStar(masterEnd) {
+    // If open set has nodes then searching
     if (openSet.length > 0) {
-        //Continue
+        // Find the next best spot
         let winner = 0;
         for (let i = 0; i < openSet.length; i++) {
             if (openSet[i].f < openSet[winner].f) {
@@ -111,26 +116,29 @@ function aStar(masterEnd) {
             }
         }
         current = openSet[winner];
+        // If find the G spot 
         if (current == masterEnd) {
-            console.log("Second G!");
-            console.log("WEIGHT: " + masterEnd.g)
             masterEnd.find = true;
             if (!firstG) {
-                document.getElementById('g1WeightValue').innerHTML = masterEnd.g;
+                // First G spot
+                document.getElementById('g1WeightValue').innerHTML = masterEnd.g;   // Show weight to user
                 document.getElementById('g1Weight').classList.remove('d-none');
                 g1w = masterEnd.g;
                 firstG = true;
                 let temp = current;
+                // Save the first path to a new array 
                 firstPath.push(temp);
                 while (temp.previous) {
                     firstPath.push(temp.previous);
                     temp = temp.previous;
                 }
+                // Start a new search with new values
                 openSet = [];
                 closeSet = [];
                 current.previous = undefined;
                 start = masterEnd;
                 openSet.push(start)
+                // Set the second G spot as masterEnd
                 if (g1 === masterEnd) {
                     end = g2;
                     g1.find = true;
@@ -139,6 +147,7 @@ function aStar(masterEnd) {
                     g2.find = true;
                 }
             } else {
+                // Find the second G spot and print the weight and the messages to user
                 document.getElementById('g2WeightValue').innerHTML = masterEnd.g - g1w;
                 document.getElementById('g2Weight').classList.remove('d-none');
                 document.getElementById('gWeightValue').innerHTML = masterEnd.g;
@@ -147,65 +156,63 @@ function aStar(masterEnd) {
                 document.getElementById('result').innerHTML = "A* had find G1 and G2 spot";
                 document.getElementById('result').classList.remove('d-none');
                 console.log("DONE!");
+                // End of the algorithm 
                 noLoop();
             }
 
         }
-
+        // Remove current node from the open set and push it to close set 
         removeFromArray(openSet, current)
-
         closeSet.push(current);
+        // Set the neighbors
         let neighbors = current.neighbors;
+
+        // Calc the best route from the neighbors with the heuristic
         for (let i = 0; i < neighbors.length; i++) {
             let neighbor = neighbors[i];
-            // neighbor.g = current.g + 1;
-
             if (!closeSet.includes(neighbor) && !neighbor.wall) {
                 let tempG = addWeight(current, neighbor);
-                // let tempG = current.g + 1;
-
                 if (tempG < neighbor.g) {
                     neighbor.g = tempG;
                 } else {
                     neighbor.g = tempG;
                     openSet.push(neighbor);
                 }
-
                 neighbor.h = heuristic(neighbor, masterEnd);
                 neighbor.f = neighbor.g + neighbor.h;
                 neighbor.previous = current;
             }
         }
     } else {
-        //No solution
-        console.log("No solution ");
+        // No solution and show the messages to the user
         document.getElementById('result').classList.add('text-danger');
         document.getElementById('result').innerHTML = "No Solution"
         document.getElementById('result').classList.remove('d-none');
-        // document.getElementById('resetButton').classList.remove('d-none');
+        // End of the algorithm
         noSulotion = false;
         noLoop();
     }
 }
 
+// Print the spots to canvas
 function printSpots() {
     background(0);
-
+    // Grid
     for (let i = 0; i < cols; i++) {
         for (let j = 0; j < rows; j++) {
             grid[i][j].show(color(255));
         }
     }
-
+    // Close set nodes(Red)
     for (let i = 0; i < closeSet.length; i++) {
         closeSet[i].show(color(255, 0, 0));
 
     }
-
+    // Open set nodes (Green)
     for (let i = 0; i < openSet.length; i++) {
         openSet[i].show(color(0, 255, 0));
     }
-
+    // Add the path to array
     if (!noSulotion) {
         path = [];
         let temp = current;
@@ -215,7 +222,7 @@ function printSpots() {
             temp = temp.previous;
         }
     }
-
+    // Path nodes (Blue) 
     for (let i = 0; i < path.length; i++) {
         path[i].show(color(0, 0, 255));
         if (path[i].startNode) {
@@ -223,12 +230,14 @@ function printSpots() {
         }
 
     }
+    // First Path (Blue)
     for (let i = 0; i < firstPath.length; i++) {
         firstPath[i].show(color(0, 0, 200));
         if (firstPath[i].startNode) {
             firstPath[i].show(color(50, 50, 50));
         }
     }
+    // G Spots with different colors
     if (g1.find) {
         g1.show(color(140, 20, 252))
     } else {
@@ -244,7 +253,7 @@ function printSpots() {
 }
 
 function createSpots() {
-    console.log(grid)
+    // Create all the spots from the N
     for (let i = 0; i < cols; i++) {
         grid[i] = new Array(rows);
     }
@@ -260,7 +269,7 @@ function createSpots() {
         }
     }
 }
-
+// A class with the spots
 class Spot {
     constructor(i, j) {
         this.startNode = false;
@@ -278,8 +287,7 @@ class Spot {
             this.wall = true;
         }
     }
-
-
+    // print node method
     show(color) {
         fill(color);
         if (this.wall) {
@@ -288,7 +296,7 @@ class Spot {
         noStroke();
         rect(this.i * w, this.j * h, w - 1, h - 1)
     }
-
+    // Add neighbors to the current node
     addNeighbors(grid) {
         let i = this.i;
         let j = this.j;
@@ -306,7 +314,7 @@ class Spot {
         }
     }
 }
-
+// Delete element from an array
 function removeFromArray(array, element) {
     for (let i = array.length - 1; i >= 0; i--) {
         if (array[i] == element) {
@@ -314,13 +322,12 @@ function removeFromArray(array, element) {
         }
     }
 }
-
+// Calc heuristic
 function heuristic(a, b) {
     let d = abs(a.i - b.i) + abs(a.j - b.j)
-    // let d = dist(a.i,a.j,b.i,b.j);
     return d;
 }
-
+// Calc the differend weights 
 function addWeight(current, neighbor) {
     if (neighbor.i - current.i == 0 && abs(neighbor.j - current.j) == 1) {
         return current.g + 0.5;
