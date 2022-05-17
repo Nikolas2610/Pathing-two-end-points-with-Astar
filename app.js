@@ -1,8 +1,8 @@
+// Declare Variables
 let N;
 let cols;
 let rows;
 let grid;
-
 let openSet = [];
 let closeSet = [];
 let start;
@@ -17,8 +17,7 @@ let g1, g2, h1, h2;
 let firstPath = [];
 let frame;
 let g1W;
-
-
+// p5 function
 function setup() {
     let canvas = createCanvas(750, 750);    //Create canvas
     canvas.parent('canvasContainer');   //Set to canvas the id for the html file
@@ -27,7 +26,7 @@ function setup() {
         resetGame(); // Start algorithm 
     }
 }
-
+// p5 function
 function draw() {
     if (startGame) {
         if (!firstG) {
@@ -40,19 +39,6 @@ function draw() {
         // Draw canvas
         printSpots();
     }
-}
-
-function stopGame() {
-    noSulotion = false;
-    firstG = false;
-    openSet = [];
-    closeSet = [];
-    firstPath = [];
-    grid= [];
-    g1 = undefined;
-    g2 = undefined;
-    start = undefined;
-    startGame = false;
 }
 
 function resetGame(formN, startNodeX, startNodeY, G1NodeX, G1NodeY, G2NodeX, G2NodeY, p, userFrameRate) {
@@ -71,6 +57,7 @@ function resetGame(formN, startNodeX, startNodeY, G1NodeX, G1NodeY, G2NodeX, G2N
     createSpots();
     // Start the loop function 
     loop();
+    // Set the position of the three nodes
     start = grid[startNodeY][startNodeX];
     g1 = grid[G1NodeY][G1NodeX];
     g2 = grid[G2NodeY][G2NodeX];
@@ -82,7 +69,6 @@ function resetGame(formN, startNodeX, startNodeY, G1NodeX, G1NodeY, G2NodeX, G2N
     // Decide which is the closet G spot from the start
     h1 = heuristic(start, g1);
     h2 = heuristic(start, g2);
-
     if (h1 == h2) {
         if (start.i - g1.i < start.i - g2.i) {
             console.log("G1")
@@ -206,7 +192,6 @@ function printSpots() {
     // Close set nodes(Red)
     for (let i = 0; i < closeSet.length; i++) {
         closeSet[i].show(color(255, 0, 0));
-
     }
     // Open set nodes (Green)
     for (let i = 0; i < openSet.length; i++) {
@@ -228,7 +213,6 @@ function printSpots() {
         if (path[i].startNode) {
             path[i].show(color(50, 50, 50));
         }
-
     }
     // First Path (Blue)
     for (let i = 0; i < firstPath.length; i++) {
@@ -248,8 +232,6 @@ function printSpots() {
     } else {
         g2.show(color(100, 100, 255))
     }
-
-
 }
 
 function createSpots() {

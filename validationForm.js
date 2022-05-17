@@ -123,8 +123,8 @@ submit.addEventListener('click', function (e) {
         form.classList.add('d-none');   // Hide Form
         game.classList.remove('d-none');    // Show Canvas
         document.getElementById('declareColors').classList.remove('d-none');
-        // stopGame()
         startGame = true;
+        // Show the values to the user
         document.getElementById('nValue').innerHTML = formN;
         document.getElementById('sNodeValueX').innerHTML = startNodeX;
         document.getElementById('sNodeValueY').innerHTML = startNodeY;
